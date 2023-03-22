@@ -129,6 +129,7 @@ ecache_alloc_grow(tsdn_t *tsdn, pac_t *pac, ehooks_t *ehooks, ecache_t *ecache,
 	}
 
 	assert(edata == NULL || edata_pai_get(edata) == EXTENT_PAI_PAC);
+	// if(edata) printf("pos: %lx, %lx\n", (uintptr_t)edata >> 40, (uintptr_t)(edata->e_addr) >> 40);
 	return edata;
 }
 

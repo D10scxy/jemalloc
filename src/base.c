@@ -46,7 +46,7 @@ base_map(tsdn_t *tsdn, ehooks_t *ehooks, unsigned ind, size_t size) {
 	assert(size == HUGEPAGE_CEILING(size));
 	size_t alignment = HUGEPAGE;
 	if (ehooks_are_default(ehooks)) {
-		addr = extent_alloc_mmap(NULL, size, alignment, &zero, &commit);
+		addr = extent_alloc_mmap_default(NULL, size, alignment, &zero, &commit);
 		if (have_madvise_huge && addr) {
 			pages_set_thp_state(addr, size);
 		}

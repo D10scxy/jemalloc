@@ -38,6 +38,21 @@ extent_alloc_mmap(void *new_addr, size_t size, size_t alignment, bool *zero,
 	return ret;
 }
 
+void *
+extent_alloc_mmap_default(void *new_addr, size_t size, size_t alignment, bool *zero,
+    bool *commit) {
+	assert(alignment == ALIGNMENT_CEILING(alignment, PAGE));
+	void *ret = pages_map(new_addr, size, alignment, commit);
+	if (ret == NULL) {
+		return NULL;
+	}
+	assert(ret != NULL);
+	if (*commit) {
+		*zero = true;
+	}
+	return ret;
+}
+
 bool
 extent_dalloc_mmap(void *addr, size_t size) {
 	if (!opt_retain) {
